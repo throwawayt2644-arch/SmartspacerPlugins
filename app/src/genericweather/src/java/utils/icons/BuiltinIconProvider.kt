@@ -51,28 +51,28 @@ object BuiltinIconProvider {
             else -> "light"
         }
 
-        // this mapping is wrong and should be changed
         val drawableName = when (conditionCode) {
-            200, 201, 202 -> "google_<theme>_isolated_scattered_thunderstorms_<time>"
-            210, 211, 212, 221, 230, 231, 232 -> "google_<theme>_isolated_thunderstorms"
-            300, 301, 302 -> "google_<theme>_scattered_showers_<time>"
-            310, 311, 312, 313, 314 -> "google_<theme>_showers_rain"
-            321 -> "google_<theme>_scattered_showers_<time>"
-            500 -> "google_<theme>_cloudy_with_rain"
-            501, 502 -> "google_<theme>_showers_rain"
-            503, 504 -> "google_<theme>_heavy_rain"
-            511, 520 -> "google_<theme>_showers_rain"
-            521, 522, 531 -> "google_<theme>_scattered_showers_<time>"
-            600, 601 -> "google_<theme>_scattered_snow_showers_<time>"
-            602 -> "google_<theme>_heavy_snow"
+            200, 201, 210, 211, 230, 231 -> "google_<theme>_isolated_thunderstorms"
+            202, 212, 232 -> "google_<theme>_strong_thunderstorms"
+            221 -> "google_<theme>_isolated_scattered_thunderstorms_<time>"
+            300, 301, 302 -> "google_<theme>_drizzle"
+            310, 311, 312, 313, 314, 321 -> "google_<theme>_showers_rain"
+            500, 501 -> "google_<theme>_showers_rain"
+            502, 503, 504, 522 -> "google_<theme>_heavy_rain"
+            511 -> "google_<theme>_mixed_rain_sleet_hail"
+            520, 521 -> "google_<theme>_showers_rain"
+            531 -> "google_<theme>_scattered_showers_<time>"
+            600, 601, 620, 621 -> "google_<theme>_showers_snow"
+            602, 622 -> "google_<theme>_heavy_snow"
             611, 612, 613 -> "google_<theme>_sleet_hail"
-            615, 616, 620, 621 -> "google_<theme>_scattered_snow_showers_<time>"
-            622 -> "google_<theme>_heavy_snow"
-            701, 711, 721, 731, 741, 751, 761, 762, 771 -> "google_<theme>_haze_fog_dust_smoke"
+            615, 616 -> "google_<theme>_mixed_rain_snow"
+            701, 711, 721, 731, 741, 751, 761, 762 -> "google_<theme>_haze_fog_dust_smoke"
+            771 -> "google_<theme>_windy_breezy"
             781 -> "google_<theme>_tornado"
             800 -> "google_<theme>_clear_<time>"
             801 -> "google_<theme>_mostly_clear_<time>"
-            802, 803 -> "google_<theme>_partly_cloudy_<time>"
+            802 -> "google_<theme>_partly_cloudy_<time>"
+            803 -> "google_<theme>_mostly_cloudy_<time>"
             804 -> "google_<theme>_cloudy"
 
             else -> throw IllegalArgumentException("Unknown condition code: $conditionCode")
@@ -107,27 +107,35 @@ object BuiltinIconProvider {
         }
 
         if (time == "day") {
-            if (conditionCode in 801..802) return WeatherStateIcon.MOSTLY_CLEAR_NIGHT
+            if (conditionCode in setOf(200, 201, 210, 211, 221, 230, 231)) return WeatherStateIcon.ISOLATED_SCATTERED_TSTORMS_NIGHT
+            else if (conditionCode == 531) return WeatherStateIcon.SCATTERED_SHOWERS_NIGHT
+            else if (conditionCode == 801) return WeatherStateIcon.MOSTLY_CLEAR_NIGHT
+            else if (conditionCode == 802) return WeatherStateIcon.PARTLY_CLOUDY_NIGHT
+            else if (conditionCode == 803) return WeatherStateIcon.MOSTLY_CLOUDY_NIGHT
             else if (conditionCode == 800) return WeatherStateIcon.CLEAR_NIGHT
         }
 
         return when (conditionCode) {
-            200, 201, 202, 210, 211, 212, 221, 230, 231 -> WeatherStateIcon.STRONG_TSTORMS
-            232 -> WeatherStateIcon.STRONG_TSTORMS
-            300, 301 -> WeatherStateIcon.HAZE_FOG_DUST_SMOKE
-            302 -> WeatherStateIcon.HEAVY_RAIN
-            310 -> WeatherStateIcon.HAZE_FOG_DUST_SMOKE
-            311, 312, 313, 314, 321 -> WeatherStateIcon.HEAVY_RAIN
-            500, 501 -> WeatherStateIcon.SHOWERS_RAIN
-            502, 503, 504, 511, 520, 521, 522, 531 -> WeatherStateIcon.HEAVY_RAIN
-            600, 601, 602, 611, 612, 613 -> WeatherStateIcon.HEAVY_SNOW
-            615, 616 -> WeatherStateIcon.BLOWING_SNOW
-            620, 621, 622 -> WeatherStateIcon.HEAVY_SNOW
-            701, 711, 721, 731, 741, 751, 761, 762, 771, 781 -> WeatherStateIcon.HAZE_FOG_DUST_SMOKE
+            200, 201, 210, 211, 221, 230, 231 -> WeatherStateIcon.ISOLATED_SCATTERED_TSTORMS_DAY
+            202, 212, 232 -> WeatherStateIcon.STRONG_TSTORMS
+            300, 301, 302 -> WeatherStateIcon.DRIZZLE
+            310, 311, 312, 313, 314, 321 -> WeatherStateIcon.SHOWERS_RAIN
+            500, 501, 520, 521 -> WeatherStateIcon.SHOWERS_RAIN
+            502, 503, 504, 522 -> WeatherStateIcon.HEAVY_RAIN
+            511 -> WeatherStateIcon.MIXED_RAIN_HAIL_RAIN_SLEET
+            531 -> WeatherStateIcon.SCATTERED_SHOWERS_DAY
+            600, 601, 620, 621 -> WeatherStateIcon.SNOW_SHOWERS_SNOW
+            602, 622 -> WeatherStateIcon.HEAVY_SNOW
+            611, 612, 613 -> WeatherStateIcon.SLEET_HAIL
+            615, 616 -> WeatherStateIcon.WINTRY_MIX_RAIN_SNOW
+            701, 711, 721, 731, 741, 751, 761, 762 -> WeatherStateIcon.HAZE_FOG_DUST_SMOKE
+            771 -> WeatherStateIcon.WINDY_BREEZY
+            781 -> WeatherStateIcon.TORNADO
             800 -> WeatherStateIcon.SUNNY
-            801, 802 -> WeatherStateIcon.MOSTLY_SUNNY
-            803 -> WeatherStateIcon.CLOUDY
-            804 -> WeatherStateIcon.CLOUDY
+            801 -> WeatherStateIcon.MOSTLY_SUNNY
+            802 -> WeatherStateIcon.PARTLY_CLOUDY
+//            803 -> WeatherStateIcon.MOSTLY_CLOUDY // TODO: should use DAY/NIGHT versions
+            803, 804 -> WeatherStateIcon.CLOUDY
 
             else -> throw IllegalArgumentException("Unknown condition code: $conditionCode")
         }
