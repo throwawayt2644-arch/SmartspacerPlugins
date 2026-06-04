@@ -179,9 +179,7 @@ class WeatherConditionTarget: SmartspacerTargetProvider() {
                     ),
                     onClick = getPackageLaunchTapAction(provideContext(), launchPackage),
                     onCarouselClick = getPackageLaunchTapAction(provideContext(), launchPackage)
-                ).create().apply {
-                    canTakeTwoComplications = true
-                })
+                ).create())
             } else {
                 return listOf(TargetTemplate.Basic(
                     id = "condition_target_$smartspacerId",
@@ -205,7 +203,7 @@ class WeatherConditionTarget: SmartspacerTargetProvider() {
                         shouldTint = false
                     ),
                     onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
-                ).create().apply{canTakeTwoComplications = true})
+                ).create())
             }
         } else {
             return listOf(TargetTemplate.Basic(
