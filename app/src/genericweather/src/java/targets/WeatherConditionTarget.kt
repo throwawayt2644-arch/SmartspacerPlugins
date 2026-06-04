@@ -205,7 +205,7 @@ class WeatherConditionTarget: SmartspacerTargetProvider() {
                         shouldTint = false
                     ),
                     onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
-                ).create())
+                ).create().apply{canTakeTwoComplications = true})
             }
         } else {
             return listOf(TargetTemplate.Basic(
