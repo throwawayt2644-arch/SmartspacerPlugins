@@ -180,7 +180,7 @@ class WeatherConditionTarget: SmartspacerTargetProvider() {
                     onClick = getPackageLaunchTapAction(provideContext(), launchPackage),
                     onCarouselClick = getPackageLaunchTapAction(provideContext(), launchPackage)
                 ).create().apply {
-                    canBeDismissed = false
+                    canTakeTwoComplications = true
                 })
             } else {
                 return listOf(TargetTemplate.Basic(
