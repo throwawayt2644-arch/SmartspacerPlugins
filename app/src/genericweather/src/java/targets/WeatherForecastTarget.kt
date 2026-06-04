@@ -153,7 +153,7 @@ class WeatherForecastTarget: SmartspacerTargetProvider() {
                         icon = null,
                         onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
                     ).create().apply {
-                        canTakeTwoComplications = true
+                        canTakeTwoComplications = false
                     }
                 )
             }
@@ -169,7 +169,7 @@ class WeatherForecastTarget: SmartspacerTargetProvider() {
                         icon = null,
                         onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
                     ).create().apply {
-                        canTakeTwoComplications = true
+                        canTakeTwoComplications = false
                     }
                 )
             }
