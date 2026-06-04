@@ -8,6 +8,16 @@ plugins {
 }
 
 android {
+
+
+signingConfigs {
+        create("release") {
+            storeFile = System.getenv("CM_KEYSTORE_PATH")?.let { file(it) }
+            storePassword = System.getenv("CM_KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("CM_KEY_ALIAS")
+            keyPassword = System.getenv("CM_KEY_PASSWORD")
+        }
+    }
     namespace = "nodomain.pacjo.smartspacer.plugin"
     compileSdk = 36
 
@@ -36,7 +46,9 @@ android {
                 "proguard-rules.pro"
             )
         }
-        release {
+      release {
+            signingConfig = signingConfigs.getByName("release")
+
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
