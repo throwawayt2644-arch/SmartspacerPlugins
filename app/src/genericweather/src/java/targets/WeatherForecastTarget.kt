@@ -128,7 +128,9 @@ class WeatherForecastTarget: SmartspacerTargetProvider() {
                         onClick = getPackageLaunchTapAction(provideContext(), launchPackage),
                         // prevent second complication (it should be possible to instruct smartspacer to make the option activated by default)
                         subComplication = ComplicationTemplate.blank().create()
-                    ).create()
+                    ).create().apply {
+                        canTakeTwoComplications = false
+                    }
                 )
             }
 
