@@ -153,7 +153,8 @@ class WeatherForecastTarget: SmartspacerTargetProvider() {
                         title = Text("Tomorrow $diffPhrase today"),
                         subtitle = null,
                         icon = null,
-                        onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
+                        onClick = getPackageLaunchTapAction(provideContext(), launchPackage),
+                        subComplication = ComplicationTemplate.blank().create()
                     ).create().apply {
                         canTakeTwoComplications = false
                     }
@@ -169,7 +170,8 @@ class WeatherForecastTarget: SmartspacerTargetProvider() {
                         title = Text(precipitationWarning),
                         subtitle = null,
                         icon = null,
-                        onClick = getPackageLaunchTapAction(provideContext(), launchPackage)
+                        onClick = getPackageLaunchTapAction(provideContext(), launchPackage),
+                        subComplication = ComplicationTemplate.blank().create()
                     ).create().apply {
                         canTakeTwoComplications = false
                     }
